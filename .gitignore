@@ -1,2 +1,4 @@
 *.vscode
 CIFAR10-Pytorch/data/
+__pycache__
+MNIST/MNIST
