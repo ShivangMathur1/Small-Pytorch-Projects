@@ -113,7 +113,7 @@ if __name__ == '__main__':
     # Hyperparameters
     batchSize = 100
     lr = 0.001
-    epochs = 10     
+    epochs = 3
 
     # Initializations
     net = Net().to(device);
