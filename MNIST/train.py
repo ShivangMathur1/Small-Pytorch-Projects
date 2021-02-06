@@ -2,12 +2,7 @@ import torch
 import torch.optim as optim
 import torch.nn as nn
 import torch.nn.functional as F
-import torchvision
 from torchvision import transforms, datasets
-
-# Load dataset to train on
-train = datasets.MNIST('', train=True, download=True, transform=transforms.Compose([transforms.ToTensor()]))
-trainset = torch.utils.data.DataLoader(train, batch_size=10, shuffle=True)
 
 # Neural Network
 class Net(nn.Module):
@@ -28,27 +23,34 @@ class Net(nn.Module):
 
         return F.log_softmax(x, dim=1)
 
-# Hyperparameters
-epochs = 3
-lr = 0.001
 
-# Declaring model, optimizer
-net = Net()
-optimizer = optim.Adam(net.parameters(), lr=lr)
+if __name__ == '__main__':
 
-# Learning
-for epoch in range(epochs):
-    for data in trainset:
-        # Data is a batch of (feature, label)
-        x, y = data
-        net.zero_grad()
-        
-        # Forward, backward,  optimiztion
-        output = net(x.view(-1, 28*28))
-        loss = F.nll_loss(output, y)
-        loss.backward()
-        optimizer.step()
+    # Load dataset to train on
+    train = datasets.MNIST('', train=True, download=True, transform=transforms.Compose([transforms.ToTensor()]))
+    trainset = torch.utils.data.DataLoader(train, batch_size=10, shuffle=True)
 
-# Save model
-torch.save(net.state_dict(), "./mnist_net.pth")
-print("Model Saved")
+    # Hyperparameters
+    epochs = 3
+    lr = 0.001
+
+    # Declaring model, optimizer
+    net = Net()
+    optimizer = optim.Adam(net.parameters(), lr=lr)
+
+    # Learning
+    for epoch in range(epochs):
+        for data in trainset:
+            # Data is a batch of (feature, label)
+            x, y = data
+            net.zero_grad()
+            
+            # Forward, backward,  optimiztion
+            output = net(x.view(-1, 28*28))
+            loss = F.nll_loss(output, y)
+            loss.backward()
+            optimizer.step()
+
+    # Save model
+    torch.save(net.state_dict(), "./mnist_net.pth")
+    print("Model Saved")

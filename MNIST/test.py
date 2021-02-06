@@ -13,16 +13,17 @@ net.load_state_dict(torch.load('./mnist_net.pth'))
 
 
 # Individual image testing
-#'''
+# '''
 img = 0
+x, y = 0, 0
 for data in testset:
     x, y = data
     break
-x = x[img].view(28,28)
-plt.imshow(x)
+
+plt.imshow(x[img].view(28,28))
 plt.show()
 
-print(torch.argmax(net(x[img].view(-1, 28*28))[0]))
+print(torch.argmax(net(x[img].view(-1, 28*28))[0]).item())
 
 '''
 
