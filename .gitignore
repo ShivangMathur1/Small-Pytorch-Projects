@@ -2,4 +2,5 @@
 CIFAR10-Pytorch/data/
 __pycache__
 MNIST/MNIST
+MNIST-Noise-Reduction/MNIST
 Dogs-vs-Cats/PetImages
