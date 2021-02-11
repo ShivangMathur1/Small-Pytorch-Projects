@@ -46,9 +46,9 @@ if __name__ == '__main__':
 
 
     # Hyperparameters
-    epochs = 50
+    epochs = 64
     lr = 0.003
-    noiseFactor = 0.5
+    noiseFactor = 0.45
 
     net = Autoencoder(lr)
     net = net.double()
@@ -74,8 +74,8 @@ if __name__ == '__main__':
 
             losses.append(loss.item())
         print("Epoch:", epoch, "Loss:", np.mean(losses))
-
-    T.save(net.state_dict(), './MNIST-denoising.pth')
-    print('Model Saved')
+        if epoch % 16 == 15:
+            print('Model Saved')
+            T.save(net.state_dict(), './MNIST-denoising.pth')
         
 
